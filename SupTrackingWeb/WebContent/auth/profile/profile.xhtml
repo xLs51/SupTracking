@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+		
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>Profile</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+	        <div class="page-header">
+				<h1>Profile</h1>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Account Informations</h3>
+		    			</div>
+		    			<div class="panel-body">
+				            <label>Pseudo : </label>
+			    			#{userManager.getUser().username}
+			    			<br />
+			    			<label>Email : </label>
+		   					#{userManager.getUser().mail}
+							<br />
+							<label>Invoice : </label>
+							#{userManager.getUser().invoice.name}
+							<br />
+						</div>
+		            </div>
+            	</div>
+			
+	    		<div class="col-sm-10">
+	    			<h:form>
+			  			<h:commandLink value="Edit profile" action="#{user.goToModify(userManager.getUser().id)}" styleClass="btn btn-danger" />
+					</h:form>	
+	    		</div>
+	    	</div>
+	    	
+		</div>
+		
+	<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>

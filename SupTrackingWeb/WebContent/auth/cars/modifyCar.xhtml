@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>Modify a car</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+
+			<h:form styleClass="form-horizontal" rendered="#{carManager.getCarById(param['id'])}">
+				<div class="form-group">
+					<h:outputLabel for="inputName" styleClass="col-sm-2 control-label"
+						value="Name" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputName" pt:placeholder="Name" binding="#{name}" value="#{carManager.car.name}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputBrand"
+						styleClass="col-sm-2 control-label" value="Brand" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputBrand" pt:placeholder="Brand"
+							binding="#{brand}" value="#{carManager.car.brand}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputYear"
+						styleClass="col-sm-2 control-label" value="Year"/>
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputYear" pt:placeholder="Year"
+							binding="#{year}" value="#{carManager.car.year}"/>
+					</div>
+				</div>
+				
+				<h:inputHidden type="hidden" id="inputHidden" pt:placeholder="Hidden" binding="#{id}" value="#{carManager.car.id}" />
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<h:commandButton type="submit" styleClass="btn btn-default"
+							value="Modify"
+							action="#{carManager.modify(id.value, name.value, brand.value, year.value)}" />
+					</div>
+				</div>
+			</h:form>
+
+		</div>
+		<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>

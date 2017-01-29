@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+		
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>My zones</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+	        <div class="page-header">
+				<h1>My zones</h1>
+			</div>
+			
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<td>First Time</td>
+						<td>Second Time</td>
+						<td>Radius</td>
+						<td>See location</td>
+						<td>Car</td>
+						<td>Modify</td>
+						<td>Remove</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="#{zoneManager.getAllUserZones()}" var="zone">
+						<tr>
+							<td>
+								<h:outputText value="#{zone.firstTime}" >
+						       		<f:convertDateTime pattern="HH:mm" />
+						 		</h:outputText>
+							</td>
+							<td>
+								<h:outputText value="#{zone.secondTime}" >
+						       		<f:convertDateTime pattern="HH:mm" />
+						 		</h:outputText>
+							</td>
+							<td>#{zone.radius}</td>
+							<td>
+								<h:form>
+						  			<h:commandLink value="See last locations" action="#{zoneManager.goToGpsZoneDetails(zone.id)}" styleClass="btn btn-default" />
+								</h:form>
+							</td>
+							<td>#{zone.car.name}</td>
+							<td>
+								<h:form>
+						  			<h:commandLink value="Modify" action="#{zoneManager.goToGpsModifyZone(zone.id)}" styleClass="btn btn-default" />
+								</h:form>
+							</td>
+							<td>
+								<h:form>
+						            <h:commandButton value="Remove" styleClass="btn btn-danger" 
+						                action="#{zoneManager.remove(zone.id)}"/>
+						         </h:form>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			
+		</div>
+		<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>

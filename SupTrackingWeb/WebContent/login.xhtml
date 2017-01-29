@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+		
+	<h:head>
+		<ui:include src="template/header.xhtml" />
+		<title>Login</title>
+	</h:head>
+	<h:body>
+		<ui:include src="template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="template/infoViewer.xhtml" />
+
+		<h:form styleClass="form-horizontal">
+			<div class="form-group">			
+				<h:outputLabel for="inputUsername" styleClass="col-sm-2 control-label" value="Username"/>
+				<div class="col-sm-10">
+					<h:inputText type="text" styleClass="form-control" id="inputUsername" pt:placeholder="Username" binding="#{username}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<h:outputLabel for="inputPassword3" styleClass="col-sm-2 control-label" value="Password"/>
+				<div class="col-sm-10">
+					<h:inputSecret type="password" styleClass="form-control" id="inputPassword3" pt:placeholder="Password" binding="#{password}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<h:commandButton type="submit" styleClass="btn btn-default" value="Sign in" action="#{userManager.logIn(username.value, password.value)}" />
+				</div>
+			</div>
+		</h:form>
+	</div>
+		<ui:include src="template/footer.xhtml" />
+	</h:body>
+</html>

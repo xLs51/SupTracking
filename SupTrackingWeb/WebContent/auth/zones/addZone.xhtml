@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>Add a zone</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+	
+			<h:form styleClass="form-horizontal">
+				<div class="form-group">
+					<h:outputLabel for="inputFirstTime" styleClass="col-sm-2 control-label"
+						value="First Time (hh:mm)" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputFirstTime" pt:placeholder="FirstTime" binding="#{firstTime}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputSecondTime" styleClass="col-sm-2 control-label"
+						value="Second Time (hh:mm)" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputSecondTime" pt:placeholder="SecondTime" binding="#{secondTime}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputLatitude"
+						styleClass="col-sm-2 control-label" value="Latitude"/>
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputLatitude" pt:placeholder="Latitude"
+							binding="#{latitude}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputLongitude"
+						styleClass="col-sm-2 control-label" value="Longitude"/>
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputLongitude" pt:placeholder="Longitude"
+							binding="#{longitude}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputRadius"
+						styleClass="col-sm-2 control-label" value="Radius"/>
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputRadius" pt:placeholder="Radius"
+							binding="#{radius}" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<h:outputLabel for="inputRadius"
+						styleClass="col-sm-2 control-label" value="Voiture"/>
+					<div class="col-sm-10">
+						<h:selectOneMenu value="#{carSelectManager.selectedItem}" styleClass="form-control">
+					        <f:selectItems value="#{carSelectManager.availableItems}" />
+					    </h:selectOneMenu>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<h:commandButton type="submit" styleClass="btn btn-default"
+							value="Add a zone"
+							action="#{zoneManager.add(firstTime.value, secondTime.value, latitude.value, longitude.value, radius.value, carSelectManager.selectedItem)}" />
+					</div>
+				</div>
+			</h:form>
+		</div>
+		<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>

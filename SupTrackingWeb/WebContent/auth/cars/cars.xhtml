@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+		
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>My cars</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+	        <div class="page-header">
+				<h1>My cars</h1>
+			</div>
+			
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Brand</td>
+						<td>Year</td>
+						<td>See Location</td>
+						<td>Modify</td>
+						<td>Remove</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="#{carManager.getAllUserCars()}" var="car">
+						<tr>
+							<td>#{car.name}</td>
+							<td>#{car.brand}</td>
+							<td>#{car.year}</td>
+							<td>
+								<h:form>
+						  			<h:commandLink value="See last locations" action="#{carManager.goToGpsCarDetails(car.id)}" styleClass="btn btn-default" />
+								</h:form>
+							</td>
+							<td>
+								<h:form>
+						  			<h:commandLink value="Modify" action="#{carManager.goToGpsModifyCar(car.id)}" styleClass="btn btn-default" />
+								</h:form>
+							</td>
+							<td>
+								<h:form>
+						  			<h:commandLink value="Remove" action="#{carManager.deleteCar(car.id)}" styleClass="btn btn-danger" />
+								</h:form>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>

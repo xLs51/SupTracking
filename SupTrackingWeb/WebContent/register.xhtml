@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:head>
+		<ui:include src="template/header.xhtml" />
+		<title>Register</title>
+	</h:head>
+	<h:body>
+		<ui:include src="template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="template/infoViewer.xhtml" />
+	
+			<h:form styleClass="form-horizontal">
+				<div class="form-group">
+					<h:outputLabel for="inputEmail3" styleClass="col-sm-2 control-label"
+						value="Email" />
+					<div class="col-sm-10">
+						<h:inputText type="email" styleClass="form-control"
+							id="inputEmail3" pt:placeholder="Email" binding="#{email}" validatorMessage="Your email is not valid"> />
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</h:inputText>
+						<h:message for="inputEmail3" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputPassword3"
+						styleClass="col-sm-2 control-label" value="Password" />
+					<div class="col-sm-10">
+						<h:inputSecret type="password" styleClass="form-control"
+							id="inputPassword3" pt:placeholder="Password"
+							binding="#{password}" validatorMessage="Your password must be at least 8 characters long">
+							<f:validateLength minimum="8" />
+						</h:inputSecret>
+						<h:message for="inputPassword3" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputPasswordConfirm"
+						styleClass="col-sm-2 control-label" value="Password Confirmation" />
+					<div class="col-sm-10">
+						<h:inputSecret type="password" styleClass="form-control"
+							id="inputPasswordConfirm" pt:placeholder="Password Confirmation"
+							binding="#{passwordConfirmation}" validatorMessage="Your password must be at least 8 characters long">
+							<f:validateLength minimum="8" />
+						</h:inputSecret>
+						<h:message for="inputPasswordConfirm" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputFirstname"
+						styleClass="col-sm-2 control-label" value="Firstname" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputFirstname" pt:placeholder="Firstname"
+							binding="#{firstname}" validatorMessage="Your first name must contains only letters">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateRequired />
+						</h:inputText>
+						<h:message for="inputFirstname" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputLastname"
+						styleClass="col-sm-2 control-label" value="Lastname" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputLastname" pt:placeholder="Lastname"
+							binding="#{lastname}" validatorMessage="Your last name must contains only letters">
+							<f:validateRegex pattern="[a-zA-Z]*" />
+							<f:validateRequired />
+						</h:inputText>
+						<h:message for="inputLastname" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputUsername"
+						styleClass="col-sm-2 control-label" value="Username" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputUsername" pt:placeholder="Username"
+							binding="#{username}" validatorMessage="Your username must be at least 3 characters long">
+							<f:validateLength minimum="3" />
+						</h:inputText>
+						<h:message for="inputUsername" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputPhone"
+						styleClass="col-sm-2 control-label" value="Phone" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputPhone" pt:placeholder="Phone"
+							binding="#{phone}" validatorMessage="Your phone number must be at least 10 characters long and contains only numbers" >
+							<f:validateRegex pattern="[0-9]{10}" />
+						</h:inputText>
+						<h:message for="inputPhone" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputAddress"
+						styleClass="col-sm-2 control-label" value="Address" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputAddress" pt:placeholder="Address"
+							binding="#{address}" validatorMessage="Your address must be at least 3 characters long">
+							<f:validateLength minimum="3" />
+						</h:inputText>
+						<h:message for="inputAddress" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel for="inputCreditCard"
+						styleClass="col-sm-2 control-label" value="Credit Card" />
+					<div class="col-sm-10">
+						<h:inputText type="text" styleClass="form-control"
+							id="inputCreditCard" pt:placeholder="Credit Card"
+							binding="#{creditCard}" validatorMessage="Your credit card must be valid">
+							<f:validateRegex pattern="^4[0-9]{12}(?:[0-9]{3})?$" />
+						</h:inputText>
+						<h:message for="inputCreditCard" style="color:red;margin:8px;" />
+					</div>
+				</div>
+				
+				<c:if test="#{not empty invoiceManager.getAll()}">
+					<h:selectOneRadio binding="#{invoice}" id="radio" validatorMessage="Invoice must be checked">
+						<f:validateRequired for="radio" />
+						<c:forEach items="#{invoiceManager.getAll()}" var="currentInvoice">
+					    	<div class="col-sm-4">
+						    	<div class="panel panel-danger">
+							      	<div class="panel-heading">
+							        	<h3 class="panel-title"><h:outputText value="#{currentInvoice.name}"/></h3>
+							      	</div>
+									<div class="panel-body alignCenter">
+							        	<p style="font-size: 50px; font-weight: bold;"><h:outputText value="#{currentInvoice.price}"/>$</p>
+										<div style="font-size: 17px;">
+						   					<label>Deadline : </label>
+						   					<h:outputText value="#{currentInvoice.duration} days" />
+						                    <br/>
+										</div>
+										<f:selectItem itemValue="#{currentInvoice.id}" />
+							      	</div>
+							    </div>
+							</div>
+						</c:forEach>
+					</h:selectOneRadio>
+					<h:message for="radio" style="color:red;margin:8px;" />
+		    	</c:if>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<h:commandButton type="submit" styleClass="btn btn-default"
+							value="Sign in"
+							action="#{userManager.register(email.value, password.value, passwordConfirmation.value, firstname.value, lastname.value, 
+											username.value, phone.value, address.value, creditCard.value, invoice.value)}" />
+					</div>
+				</div>
+			</h:form>
+		</div>
+		<ui:include src="template/footer.xhtml" />
+	</h:body>
+</html>

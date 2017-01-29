@@ -1,0 +1,134 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+		
+	<h:head>
+		<ui:include src="../../template/header.xhtml" />
+		<title>Dashboard</title>
+	</h:head>
+	<h:body>
+		<ui:include src="../../template/navbar.xhtml" />
+		<div class="container">
+			<ui:include src="../../template/infoViewer.xhtml" />
+	        <div class="page-header">
+				<h1>Dashboard</h1>
+			</div>
+		
+			<div class="bs-example bs-example-tabs">
+		    	<ul id="myTab" class="nav nav-tabs">
+		        	<!-- <li id="Projects" class="active"><a href="#projects" data-toggle="tab">Projects</a></li> -->
+		       	 	<li id="Users" class="active"><a href="#users" data-toggle="tab">Users</a></li>
+		       	 	<li id="Invoices"><a href="#invoices" data-toggle="tab">Invoices</a></li>
+		      	</ul><br />
+		      	<div id="myTabContent" class="tab-content">
+		       		<div class="tab-pane fade in active" id="users">
+		       			<c:choose>
+		       				<c:when test="#{user.getAllUsers() == null}">
+		       					<div class="alert alert-danger">
+			        				No Users registered
+			    				</div>
+		       				</c:when>
+		       				<c:otherwise>
+		       				<table class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>Username</th>
+							            <th>Mail</th>
+							            <th>Invoice</th>
+							            <th>Is Admin</th>
+							            <th>Profile</th>
+							            <th>(Modify / Display) / Remove</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="#{user.getAllUsers()}" var="currentUser">
+					        			<tr>									
+											<td>#{currentUser.username}</td>
+											<td>#{currentUser.mail}</td>
+											<td>#{currentUser.invoice.name}</td>
+											<td>#{currentUser.isAdmin}</td>
+					        			<c:choose>
+											<c:when test="${currentUser.isAdmin == true}">
+												<c:choose>
+													<c:when test="#{userManager.getUser().username == currentUser.username }">
+														<td> My account </td>
+														<td>
+															<h:form>
+													  			<h:commandLink value="Modify / Display" action="#{user.goToModify(currentUser.id)}" styleClass="btn btn-default" />
+															</h:form>				   			 				
+								   			 				<h:form>
+													            <h:commandButton value="Remove" styleClass="btn btn-danger" onclick="if(!confirm('Are you sure you want to delete your own account ?')) return false;" action="#{user.remove(currentUser.id)}"/>
+													         </h:form>
+							   			 				</td>
+													</c:when>
+													<c:otherwise>
+														<td> Admin </td>
+														<td>
+															<h:form>
+													  			<h:commandLink value="Modify / Display" action="#{user.goToModify(currentUser.id)}" styleClass="btn btn-default" />
+															</h:form>			   			 				
+								   			 				<h:form>
+													            <h:commandButton value="Remove" styleClass="btn btn-danger" onclick="if(!confirm('Are you sure you want to delete this admin account ?')) return false;" action="#{user.remove(currentUser.id)}"/>
+													         </h:form>
+							   			 				</td>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+													<td> User </td>
+						   			 				<td>
+														<h:form>
+												  			<h:commandLink value="Modify / Display" action="#{user.goToModify(currentUser.id)}" styleClass="btn btn-default" />
+														</h:form>		   			 				
+							   			 				<h:form>
+												            <h:commandButton value="Remove" styleClass="btn btn-danger" onclick="if(!confirm('Are you sure you want to delete this user account ?')) return false;" action="#{user.remove(currentUser.id)}"/>
+												         </h:form>
+						   			 				</td>				
+											</c:otherwise>
+										</c:choose>
+										</tr>
+									</c:forEach>				
+								</tbody>
+							</table>
+		       				</c:otherwise>
+		       			</c:choose>
+					</div>
+			        <div class="tab-pane fade" id="invoices">
+			        	<c:choose>
+			        		<c:when test="#{invoiceManager.getCount()  == 0}">
+			        		    <div class="alert alert-danger">
+			        				No plan created!
+			    				</div>
+			        		</c:when>
+			        		<c:otherwise>
+			        			<table class="table table-bordered">
+									<thead>
+					          			<tr>
+								            <th>Name</th>
+								            <th>Price</th>
+								            <th>Duration</th>
+								            <!-- <th>Modify/Remove</th> -->
+					          			</tr>
+					        		</thead>
+					        		<c:forEach items="#{invoiceManager.getAll()}" var="currentInvoice">
+										<tr>
+											<td>#{currentInvoice.name}</td>
+											<td>#{currentInvoice.price} $</td>
+											<td>#{currentInvoice.duration} days</td>
+				  			 				<!-- <td><a href="${pageContext.request.contextPath}/auth/admin/modifyPlan?id=${currentPlan.id}" class="btn btn-primary" role="button">Modify</a> / <a href="${pageContext.request.contextPath}/auth/admin/removePlan?id=${currentPlan.id}" class="btn btn-danger" role="button" onclick="if(!confirm('Are you sure you want to delete this plan?')) return false;">Remove</a></td> -->
+										</tr>
+									</c:forEach>
+								</table>
+			        		</c:otherwise>
+			        	</c:choose>
+					</div>
+		      	</div>
+		    </div>
+		    
+		</div>
+		
+	<ui:include src="../../template/footer.xhtml" />
+	</h:body>
+</html>
